@@ -1,4 +1,5 @@
 from django.db import models
+from PIL import Image
 import uuid
 # Create your models here.
 
@@ -30,6 +31,35 @@ class CitizenPersonalInfo(models.Model):
 
     class Meta:
         verbose_name = 'Citizen Personal Information'
+
+
+class CitizenContactInfo(models.Model):
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='citizen_contact')
+    email = models.EmailField()
+    contact_no = models.CharField(
+        'contact number', max_length=20, help_text='include the prefix')
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} contact info'
+
+
+class CitizenProfile(models.Model):
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='citizen_profile')
+    profile_pic = models.ImageField(
+        upload_to='profile', default='default.jpg', blank=None)
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} contact info'
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.profile_pic.path)
+        if img.width < 300 or img.height > 300:
+            output = (300, 300)
+            img.thumbnail(output)
+            img.save(self.profile_pic.path)
 
 
 class MedicalRecord(models.Model):
