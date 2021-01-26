@@ -30,3 +30,41 @@ class CitizenPersonalInfo(models.Model):
 
     class Meta:
         verbose_name = 'Citizen Personal Information'
+
+
+class MedicalRecord(models.Model):
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='citizen_medical')
+    weight = models.IntegerField(help_text='in kg')
+    blood_pressure = models.CharField(max_length=10)
+    temperature = models.IntegerField(help_text='in celsius')
+    pulse_rate = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} record'
+
+
+class MedicalHistory(models.Model):
+    medical_rec = models.ManyToManyField(
+        MedicalRecord, related_name='medical_history', verbose_name='medical record')
+    history = models.CharField(max_length=400)
+
+    def __str__(self):
+        citizen = self.medical_rec.all().first().citizen
+        return f'{citizen.first_name} {citizen.last_name} History'
+
+    class Meta:
+        verbose_name_plural = 'Medical Histories'
+
+
+class TreatmetReceive(models.Model):
+    medical_rec = models.ManyToManyField(
+        MedicalRecord, related_name='treatment_record', verbose_name='treatment record')
+    treatment = models.CharField(max_length=400)
+
+    def __str__(self):
+        citizen = self.medical_rec.all().first().citizen
+        return f'{citizen.first_name} {citizen.last_name} treatment received'
+
+    class Meta:
+        verbose_name_plural = 'Treatment Received'
