@@ -43,6 +43,9 @@ class CitizenContactInfo(models.Model):
     def __str__(self):
         return f'{self.citizen.first_name} {self.citizen.last_name} contact info'
 
+    class Meta:
+        verbose_name = 'Citizen Contact Information'
+
 
 class CitizenProfile(models.Model):
     citizen = models.ForeignKey(
@@ -62,6 +65,63 @@ class CitizenProfile(models.Model):
             img.save(self.profile_pic.path)
 
 
+class CovidStatus(models.Model):
+    # citizen = models.ManyToManyField(
+    #     MedicalRecord, related_name='cc_status', verbose_name='citizen')
+    CASE = [
+        ('Asymptomatic', 'Asymptomatic'),
+        ('Symptomatic', 'Symptomatic')
+    ]
+    DAYS = [
+        ('7', '7 days'),
+        ('14', '14 days'),
+        ('24', '24 days')
+    ]
+
+    STATUS = [
+        ('N', 'Negative'),
+        ('P', 'Positive'),
+        ('PUI', 'Patience Under Investigation')
+    ]
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='cc_status')
+    covid_case = models.CharField(max_length=150, choices=CASE, blank=True)
+    days_of_quarantine = models.CharField(
+        max_length=150, choices=DAYS, blank=True)
+    status = models.CharField(max_length=150, choices=STATUS, blank=True)
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} covid status'
+
+    class Meta:
+        verbose_name_plural = 'Covid Status'
+
+
+class TravelHistory(models.Model):
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='travel_history')
+
+    travel_history = models.CharField(max_length=250, blank=True)
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} traveled to travel_history'
+
+    class Meta:
+        verbose_name_plural = 'Travel Histories'
+
+
+class ContactTrace(models.Model):
+    citizen = models.ForeignKey(
+        CitizenPersonalInfo, on_delete=models.CASCADE, related_name='contact_trace')
+    person_interacted = models.CharField(max_length=250, blank=True)
+
+    def __str__(self):
+        return f'{self.citizen.first_name} {self.citizen.last_name} interacted with {self.person_interacted}'
+
+    class Meta:
+        verbose_name_plural = 'Contact Trace'
+
+
 class MedicalRecord(models.Model):
     citizen = models.ForeignKey(
         CitizenPersonalInfo, on_delete=models.CASCADE, related_name='citizen_medical')
@@ -75,26 +135,25 @@ class MedicalRecord(models.Model):
 
 
 class MedicalHistory(models.Model):
-    medical_rec = models.ManyToManyField(
-        MedicalRecord, related_name='medical_history', verbose_name='medical record')
+    medical_rec = models.ForeignKey(
+        MedicalRecord, on_delete=models.CASCADE, related_name='medical_history', verbose_name='medical record')
     history = models.CharField(max_length=400)
 
     def __str__(self):
-        citizen = self.medical_rec.all().first().citizen
-        return f'{citizen.first_name} {citizen.last_name} History'
+        return f'{self.medical_rec.citizen.first_name} {self.medical_rec.citizen.last_name} History'
 
     class Meta:
         verbose_name_plural = 'Medical Histories'
 
 
-class TreatmetReceive(models.Model):
-    medical_rec = models.ManyToManyField(
-        MedicalRecord, related_name='treatment_record', verbose_name='treatment record')
+class TreatmentReceive(models.Model):
+    medical_rec = models.ForeignKey(
+        MedicalRecord, on_delete=models.CASCADE, related_name='treatment_record', verbose_name='treatment record')
     treatment = models.CharField(max_length=400)
 
     def __str__(self):
-        citizen = self.medical_rec.all().first().citizen
-        return f'{citizen.first_name} {citizen.last_name} treatment received'
+        # citizen = self.medical_rec.all().first().citizen
+        return f'{self.medical_rec.citizen.first_name} {self.medical_rec.citizen.last_name} treatment received'
 
     class Meta:
         verbose_name_plural = 'Treatment Received'
