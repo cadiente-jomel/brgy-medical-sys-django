@@ -1,5 +1,42 @@
 from django.urls import path, include
+from .views import (
+    CitizenPersonalViewset,
+    CitizenPersonal,
+    MedicalRecordViewSet,
+    MedicalRecord, MedicalHistoryViewset,
+    MedicalHistory,
+    TreatmentReceiveViewSet,
+    TreatmentReceive,
+    CitizenContactInfoViewSet,
+    CitizenContactInfo,
+    CovidStatusViewSet,
+    CovidStatus,
+    TravelHistoryViewSet,
+    TravelHistory,
+    ContactTraceViewSet,
+    ContactTrace,
+    CitizenProfileViewSet,
+    CitizenProfile
+)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
+    path('citizen-personal/', CitizenPersonalViewset.as_view()),
+    path('citizen-personal/<str:pk>', CitizenPersonal.as_view()),
+    path('medical-record/', MedicalRecordViewSet.as_view()),
+    path('medical-record/<str:pk>', MedicalRecord.as_view()),
+    path('medical-history/', MedicalHistoryViewset.as_view()),
+    path('medical-history/<str:pk>', MedicalHistory.as_view()),
+    path('treatment/', TreatmentReceiveViewSet.as_view()),
+    path('treatment/<str:pk>', TreatmentReceive.as_view()),
+    path('citizen-contact/', CitizenContactInfoViewSet.as_view()),
+    path('citizen-contact/<str:pk>', CitizenContactInfo.as_view()),
+    path('covid-status/', CovidStatusViewSet.as_view()),
+    path('covid-status/<str:pk>', CovidStatus.as_view()),
+    path('travel-history/', TravelHistoryViewSet.as_view()),
+    path('travel-history/<str:pk>', TravelHistory.as_view()),
+    path('contact-trace/', ContactTraceViewSet.as_view()),
+    path('contact-trace/<str:pk>', ContactTrace.as_view()),
+    path('citizen-profile/', CitizenProfileViewSet.as_view()),
+    path('citizen-profile/<str:pk>', CitizenProfile.as_view()),
 ]

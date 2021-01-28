@@ -125,9 +125,9 @@ class ContactTrace(models.Model):
 class MedicalRecord(models.Model):
     citizen = models.ForeignKey(
         CitizenPersonalInfo, on_delete=models.CASCADE, related_name='citizen_medical')
-    weight = models.IntegerField(help_text='in kg')
+    weight = models.FloatField(help_text='in kg')
     blood_pressure = models.CharField(max_length=10)
-    temperature = models.IntegerField(help_text='in celsius')
+    temperature = models.FloatField(help_text='in celsius')
     pulse_rate = models.IntegerField()
 
     def __str__(self):
