@@ -5,7 +5,71 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    font-family: 'Dosis', sans-serif;
 }
 
-/* do the navigation part */
+.right__main {
+    padding: 5rem;
+    max-width: 96rem;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+.btn {
+    font-size: 1.5rem;
+    color: #f9c4b0;
+}
+
+.btn--bottom {
+    width: 100%;
+}
+
+.search {
+    width: 100%;
+}
+
+.btn:focus,
+.search__input:focus {
+    outline: none;
+}
+
+.btn:hover {
+    color: #dd3422;
+}
+
+.search__btn {
+    padding: 0.2rem 1rem;
+}
+
+/* dropdown transition */
+
+.origin-top-right {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: ease-out 0.1s;
+}
+
+.origin-top-right--show {
+    opacity: 1;
+    transform: scale(1);
+    transition: ease-out 0.1s;
+}
+
+/* end of dropdown transition */
+
+.content {
+    background-color: #f2f2f1;
+    height: 85%;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.title {
+    border-bottom: 1px solid #dd3422;
+}
+
+.text-default {
+    color: #dd3422;
+}
