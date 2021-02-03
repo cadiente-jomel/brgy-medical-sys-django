@@ -2,24 +2,44 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from './Button'
+import {
+    // BrowserRouter as Router,
+    Link
+  } from "react-router-dom";
 
 // navigation should be vertical
 const Navigation = ({ title }) => {
     return (
-        <nav style={navigationStyle} className='flex flex-col justify-between w-20 h-screen navigation navigation--theme-default '>
-        {/* inline styling */}
-            <div className="flex flex-col navigation__container">
-                <a href="/" style={homeButtonStyle} className='navigation__home'>Home</a>
-                <Button icon='fas fa-home home'  text='Home'/>
-                <Button icon='fas fa-users navigation__citizen'  text='Citizen Profile'/>
-                <Button icon='fas fa-notes-medical navigation__checkup'  text='Check Up'/>
-                <Button icon='fas fa-money-bill-alt navigation__expenses'  text='Medical Expenses'/>
-                <Button icon='fas fa-head-side-cough navigation__pandemic'  text='Pandemic Records'/>
-            </div>
-                <div className="navigation__bottom__el navigation__settings ">
-                    <Button icon='fas fa-cog'  text='Pandemic Records' btncls='btn btn--bottom p-4'/>
+        // <Router>
+
+            <nav style={navigationStyle} className='flex flex-col justify-between w-20 h-screen navigation navigation--theme-default '>
+            {/* inline styling */}
+                <div className="flex flex-col navigation__container">
+                    <Link to='/'>
+                        <a href="/" style={homeButtonStyle} className='navigation__home'>Home</a>
+                    </Link>
+                    <Link to='/'>
+                    <Button icon='fas fa-home home'  text='Home'/>
+                    </Link>
+                    <Link to='/citizen-profile'>
+                    <Button icon='fas fa-users navigation__citizen'  text='Citizen Profile'/>
+                    </Link>
+                    <Link to='/citizen-check-up'>
+                    <Button icon='fas fa-notes-medical navigation__checkup'  text='Check Up'/>
+                    </Link>
+                    <Link to='/medical-expenses'>
+                    <Button icon='fas fa-money-bill-alt navigation__expenses'  text='Medical Expenses'/>
+
+                    </Link>
+                    <Link to='/pandemic-records'>
+                    <Button icon='fas fa-head-side-cough navigation__pandemic'  text='Pandemic Records'/>
+                    </Link>
                 </div>
-        </nav>
+                    <div className="navigation__bottom__el navigation__settings ">
+                        <Button icon='fas fa-cog'  text='Pandemic Records' btncls='btn btn--bottom p-4'/>
+                    </div>
+            </nav>
+        // </Router>
     )
 }
 
