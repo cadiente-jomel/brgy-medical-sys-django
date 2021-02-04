@@ -1,5 +1,6 @@
 from django.db import models
 from PIL import Image
+from django.utils import timezone
 import uuid
 # Create your models here.
 
@@ -79,8 +80,8 @@ class CovidStatus(models.Model):
     ]
 
     STATUS = [
-        ('N', 'Negative'),
-        ('P', 'Positive'),
+        ('Negative', 'Negative'),
+        ('Positive', 'Positive'),
         ('PUI', 'Patience Under Investigation')
     ]
     citizen = models.ForeignKey(
@@ -129,6 +130,10 @@ class MedicalRecord(models.Model):
     blood_pressure = models.CharField(max_length=10)
     temperature = models.FloatField(help_text='in celsius')
     pulse_rate = models.IntegerField()
+    last_checkup = models.DateField(default=timezone.now())
+
+    def save(self, *args, **kwargs):
+        self.last_checkup = timezone.now()
 
     def __str__(self):
         return f'{self.citizen.first_name} {self.citizen.last_name} record'

@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Button from './Button'
+import { useEffect, useState } from 'react';
 import {
     // BrowserRouter as Router,
     Link
@@ -9,6 +10,7 @@ import {
 
 // navigation should be vertical
 const Navigation = ({ title }) => {
+ 
     return (
         // <Router>
 

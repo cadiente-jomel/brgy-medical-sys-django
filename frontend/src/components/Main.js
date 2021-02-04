@@ -23,13 +23,13 @@ const Main = ({ view }) => {
     } else if (view === 'check-up') {
         return (
                 <div>
-                    <Table col2='Temperature' col3='Blood Pressure' col4='Medical History'/>
+                    <Table recs={records} col2='Temperature' col3='Pulse Rate' col4='Weight' customRow1='blood_pressure' customRow2='pulse_rate' customRow3='weight' customRow4='temperature' customList={['citizen_medical']}/>
                 </div>
             )
     } else if (view === 'pandemic') {
         return (
                 <div>
-                    <Table col2='Address' col3='PUI' col4='Age' />
+                    <Table recs={records} col2='Address' col3='PUI' col4='Age' customRow3='age' customList={['travel_history', 'contact_trace']} />
                 </div>
             )
     }

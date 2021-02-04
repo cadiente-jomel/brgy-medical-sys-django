@@ -64,7 +64,7 @@ class CitizenPersonalInfoSerializer(serializers.ModelSerializer):
     citizen_profile = CitizenProfileSerializer(many=True, read_only=True)
     citizen_contact = CitizenContactInfoSerializer(
         many=True, read_only=True)
-    covid_status = CovidStatusSerializer(many=True, read_only=True)
+    cc_status = CovidStatusSerializer(many=True, read_only=True)
     contact_trace = ContactTraceSerializer(many=True, read_only=True)
     travel_history = TravelHistorySerializer(many=True, read_only=True)
     citizen_medical = MedicalRecordSerializer(many=True, read_only=True)
@@ -77,5 +77,5 @@ class CitizenPersonalInfoSerializer(serializers.ModelSerializer):
         model = CitizenPersonalInfo
         fields = ['id', 'first_name', 'last_name', 'age', 'birthdate', 'gender',
                   'address', 'civil_status', 'occupation', 'citizen_profile',
-                  'citizen_contact', 'covid_status', 'contact_trace',
+                  'citizen_contact', 'cc_status', 'contact_trace',
                   'travel_history', 'citizen_medical']

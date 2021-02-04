@@ -1,5 +1,7 @@
 import Row from './Row';
-const Table = ({col1, col2, col3, col4, recs}) => {
+const Table = ({col1, col2, col3, col4, recs, customRow1, customRow2, customRow3, customRow4, customList}) => {
+
+
     return (
         <div className="p-4 flex flex-col">
             <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -29,7 +31,10 @@ const Table = ({col1, col2, col3, col4, recs}) => {
                     <tbody className="bg-white divide-y divide-gray-200">
                         {
                             recs.map((rec) => (
-                               <Row key={rec.id} data={rec} />
+                               <Row key={rec.id} data={rec}
+                               isTravel={rec['travel_history'].length}
+                               isContactTrace={rec['contact_trace'].length}
+                               customRow1={customRow1} customRow2={customRow2} customRow3={customRow3} customRow4={customRow4} customList={customList} />
                             ))
                         }
                         {/* <tr>
